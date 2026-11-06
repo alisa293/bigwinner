@@ -1,944 +1,283 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BigWinner UI Demo</title>
-
-<!-- Font Awesome Icons -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><title>BigWinner UI</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root {
-  --primary: #df6461;
-  --light: #f07875;
-  --dark: #b94f4d;
-  --bg: #f5f5f5;
-  --white: #fff;
-  --green: #76a77c;
-  --gray: #999;
+:root{--red:#df6662;--dark:#bd514e;--pale:#f8e1e0;--line:#e8d6d5;--text:#777;--green:#78a978;--blue:#3191bd}*{box-sizing:border-box}body{margin:0;background:#f4f4f4;font-family:Arial,Helvetica,sans-serif;color:#555}.top{height:72px;background:var(--red);display:flex;align-items:center;padding:8px 2%;gap:14px;color:white;position:sticky;top:0;z-index:5}.brand{font-weight:800;letter-spacing:5px;font-size:23px;min-width:280px}.brand small{display:block;font-size:9px;letter-spacing:2px;margin:4px 0 0 32px}.ticker{background:#e98783;border-radius:7px;padding:12px 16px;flex:1;white-space:nowrap;overflow:hidden}.topbtn{border:0;background:#e98783;color:white;border-radius:7px;padding:12px 15px;font-size:16px;white-space:nowrap}.topbtn i{margin-right:7px}.logout{font-size:24px;padding:8px}.shell{padding:10px 12px 82px}.page{display:none;background:white;border:1px solid #ddd;border-top:5px solid var(--red);border-radius:9px;min-height:calc(100vh - 166px);padding:12px;box-shadow:0 1px 4px #ddd}.page.active{display:block}.bottom{position:fixed;bottom:0;left:0;right:0;height:70px;background:var(--red);display:flex;z-index:8}.nav{flex:1;border:0;background:transparent;color:#fff;font-size:clamp(13px,2vw,25px);display:flex;align-items:center;justify-content:center;gap:10px}.nav.active{background:var(--dark);font-weight:bold}.nav i{font-size:1.15em}.homegrid{display:grid;grid-template-columns:minmax(330px,37%) 1fr;gap:10px;height:calc(100vh - 180px);min-height:520px}.stats{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:190px 1fr;gap:8px}.stat{background:var(--red);color:#fff;border-radius:8px;padding:14px 18px;overflow:hidden}.stat h3{background:white;color:#b95c58;border-radius:0 0 18px 18px;text-align:center;margin:-14px -8px 15px;padding:7px}.bigcenter{text-align:center}.bigcenter .number{font-size:30px;font-weight:bold}.pill{display:inline-block;background:#ffdc68;color:#9a5b20;border-radius:20px;padding:5px 13px;font-weight:bold;margin-top:8px}.metric{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.metric .value{font-size:30px;margin:6px 0}.metric small{font-size:17px;color:#ffe0df}.orders{border:1px solid #ddd;border-radius:8px;display:flex;flex-direction:column;min-width:0;overflow:hidden}.ordershead{display:flex;justify-content:space-between;align-items:center;padding:8px 10px}.sectiontag{background:var(--red);color:white;padding:13px 22px;font-size:19px}.tabs{display:flex}.tabs button,.subtabs button{border:1px solid #d9a3a1;background:white;padding:11px 22px;color:#555;font-size:16px}.tabs button.active,.subtabs button.active{background:var(--red);color:white}.tablewrap{overflow:auto;flex:1}table{border-collapse:collapse;width:100%;min-width:750px;font-size:16px}th{background:#f3f1f1;color:#999;font-weight:normal;padding:14px 10px}td{padding:12px 10px;text-align:center;border-bottom:1px solid #eee;white-space:nowrap}tr:nth-child(even) td{background:#f5f5f5}.positive{color:#c86c68}.done,.valid{color:var(--green)}.totalrow{background:#f6d4d3;color:#bd514e;font-weight:bold;padding:8px 15px;display:flex;justify-content:space-between}.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar .spacer{flex:1}.search{padding:10px;border:1px solid #d5a3a1;font-size:16px;min-width:170px}.action{background:var(--red);border:0;color:white;padding:11px 18px;font-size:15px;border-radius:4px}.action.green{background:#70a66b}.action.blue{background:#57a7b4}.action.purple{background:#9862bf}.subtabs{display:flex;gap:0;margin-bottom:14px}.subtabs button{min-width:150px}.panel{border:1px solid #e2dddd;border-radius:8px;padding:18px;margin-bottom:12px}.walletrow{display:grid;grid-template-columns:42% 26% 20% 1fr;align-items:center;gap:12px;padding:18px 12px;border-bottom:1px solid #eee}.walletrow:last-child{border:0}.walletname{font-size:22px;font-weight:bold;color:#222}.walletname i{color:#5ba8b5;margin-right:12px}.balance{border:2px solid #ddd;border-radius:7px;padding:10px;color:#c86a66;font-size:21px;font-weight:bold}.muted{color:#999;margin:8px 0 0}.kycitem{display:grid;grid-template-columns:80px 1fr 200px;align-items:center;gap:15px;padding:22px 10px;border-bottom:1px solid #ddd}.num{width:52px;height:52px;border-radius:50%;background:var(--red);color:white;display:grid;place-items:center;font-size:25px}.cert{display:inline-block;background:linear-gradient(90deg,#eebc34,#9412db);color:white;padding:14px 30px;border-radius:0 25px 0 25px;font-size:22px;font-weight:bold}.statusbox{text-align:center;padding:12px;background:#75a66e;color:white;font-size:18px}.statusbox.gray{background:#b9b9bd}.note{grid-column:2/4;color:#999;font-size:18px;padding:12px 0}.promo{background:#fbefed;padding:35px;display:grid;grid-template-columns:30% 1fr;gap:30px;min-height:400px}.qr{width:210px;height:210px;background:white;border:10px solid white;display:grid;place-items:center;font-size:75px;color:#222}.promolink{background:white;padding:18px;word-break:break-all;font-size:17px;max-width:620px}.progress{background:#eee;border-radius:20px;height:22px;min-width:100px;overflow:hidden}.progress span{display:block;background:var(--red);height:100%;color:white;font-size:12px;text-align:center;border-radius:20px}.historytotal{background:#f6d4d3;padding:10px;color:#b94f4b;font-weight:bold}.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:#333;color:white;padding:10px 18px;border-radius:6px;display:none;z-index:20}.smalltag{background:#eee;padding:5px 8px;border-radius:4px;color:#777}
+@media(max-width:850px){.top{gap:5px}.brand{min-width:130px;font-size:16px;letter-spacing:2px}.brand small{font-size:7px;margin-left:0}.topbtn{font-size:11px;padding:9px 7px}.ticker{font-size:12px}.homegrid{grid-template-columns:1fr;height:auto}.stats{grid-template-rows:160px 220px}.orders{min-height:420px}.walletrow{grid-template-columns:1fr 1fr}.promo{grid-template-columns:1fr}.kycitem{grid-template-columns:50px 1fr 130px}.cert{font-size:16px;padding:12px}.nav{gap:4px;flex-direction:column;font-size:11px}.nav i{font-size:18px}.bottom{height:65px}.shell{padding:7px 6px 75px}}
+
+/* Landscape WebView layout fixes */
+.top{height:58px;gap:7px;padding:6px 1%;}
+.brand{min-width:170px;font-size:18px;letter-spacing:3px;}
+.brand small{font-size:7px;letter-spacing:1.5px;margin-left:24px;}
+.topbtn{font-size:12px;padding:8px 9px;}
+.topbtn i{margin-right:5px;}
+.topbtn.logout{font-size:19px;padding:7px;}
+.shell{padding:7px 8px 92px;}
+.page{min-height:0;padding:8px;}
+.homegrid{height:auto;min-height:0;grid-template-columns:minmax(245px,37%) minmax(0,1fr);gap:8px;align-items:stretch;}
+.stats{grid-template-rows:145px 220px;gap:7px;min-width:0;}
+.stat{padding:9px 10px;}
+.stat h3{margin:-9px -4px 9px;padding:6px;font-size:15px;}
+.bigcenter .number{font-size:23px;}
+.metric{gap:8px;margin-top:8px;}
+.metric .value{font-size:22px;margin:3px 0;}
+.metric small{font-size:12px;}
+.orders{min-width:0;min-height:365px;}
+.ordershead{gap:5px;padding:6px;}
+.sectiontag{padding:9px 12px;font-size:15px;white-space:nowrap;}
+.tabs button{padding:8px 10px;font-size:12px;}
+.orders .tablewrap{min-width:0;overflow:hidden;}
+.orders table{width:100%;min-width:0;table-layout:fixed;font-size:12px;}
+.orders th,.orders td{padding:9px 3px;white-space:normal;overflow-wrap:anywhere;}
+.orders th:nth-child(1){width:18%;}
+.orders th:nth-child(2){width:31%;}
+.orders th:nth-child(3){width:17%;}
+.orders th:nth-child(4){width:17%;}
+.orders th:nth-child(5){width:17%;}
+.totalrow{padding:7px 10px;font-size:13px;}
+.bottom{height:56px;}
+.nav{font-size:clamp(12px,1.8vw,18px);gap:5px;}
+.toast{bottom:65px;}
+@media(max-width:850px){
+  .top{height:54px;gap:4px;padding:5px;}
+  .brand{min-width:118px;font-size:13px;letter-spacing:1.5px;}
+  .brand small{font-size:6px;margin-left:0;}
+  .topbtn{font-size:10px;padding:7px 5px;}
+  .ticker{font-size:10px;padding:8px;}
+  .homegrid{grid-template-columns:minmax(210px,36%) minmax(0,1fr);height:auto;}
+  .stats{grid-template-rows:130px 205px;}
+  .nav{flex-direction:row;font-size:11px;}
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Arial, sans-serif;
+/* Full-screen edge-to-edge layout: remove outer white gutters */
+html, body { width:100%; height:100%; min-height:100%; margin:0 !important; padding:0 !important; }
+body { background:var(--red) !important; overflow:hidden; }
+.top { width:100%; margin:0; }
+.shell { width:100%; max-width:none; margin:0 !important; padding:0 !important; }
+.page { width:100%; max-width:none; margin:0 !important; border-left:0; border-right:0; border-radius:0; min-height:calc(100dvh - 114px); }
+.homegrid { width:100%; }
+.bottom { width:100%; left:0; right:0; margin:0; }
+@supports not (height: 100dvh) { .page { min-height:calc(100vh - 114px); } }
+
+
+/* GLOBAL COMPACT SCALE — applied consistently to EVERY tab */
+.page { padding:6px !important; overflow:auto; }
+.page:not(#home) { font-size:12px !important; }
+.page:not(#home) .subtabs { margin-bottom:8px; }
+.page:not(#home) .subtabs button { min-width:0; padding:7px 15px; font-size:13px; }
+.page:not(#home) .toolbar { gap:6px; margin-bottom:8px; }
+.page:not(#home) .toolbar button,
+.page:not(#home) .action { padding:7px 11px; font-size:12px; line-height:1.2; }
+.page:not(#home) .search { padding:7px 9px; min-width:110px; font-size:12px; }
+.page:not(#home) table { font-size:12px; min-width:680px; }
+.page:not(#home) th { padding:8px 6px; font-size:12px; }
+.page:not(#home) td { padding:7px 6px; font-size:12px; }
+.page:not(#home) .tablewrap { max-height:calc(100dvh - 145px); overflow:auto; }
+.page:not(#home) .panel { padding:10px; margin-bottom:8px; }
+.page:not(#home) .walletrow { gap:7px; padding:9px 7px; grid-template-columns: minmax(180px, 34%) minmax(120px, 22%) minmax(95px, 16%) 1fr; }
+.page:not(#home) .walletname { font-size:14px; }
+.page:not(#home) .balance { padding:6px 8px; font-size:14px; }
+.page:not(#home) .muted { font-size:11px; margin-top:4px; }
+.page:not(#home) .kycitem { grid-template-columns:42px 1fr 135px; gap:8px; padding:11px 6px; }
+.page:not(#home) .num { width:32px; height:32px; font-size:16px; }
+.page:not(#home) .cert { font-size:14px; padding:8px 14px; }
+.page:not(#home) .statusbox { padding:7px; font-size:12px; }
+.page:not(#home) .note { font-size:12px; padding:7px 0; }
+.page:not(#home) .promo { padding:16px; gap:14px; min-height:0; }
+.page:not(#home) .qr { width:135px; height:135px; font-size:48px; }
+.page:not(#home) .promolink { padding:10px; font-size:12px; }
+.page:not(#home) .progress { height:16px; min-width:65px; }
+.page:not(#home) .historytotal { padding:7px; font-size:12px; }
+/* Home page compacted too, not left at its previous larger scale */
+#home .homegrid { grid-template-columns:minmax(220px,32%) minmax(0,1fr); gap:7px; }
+#home .stats { grid-template-rows:112px 168px; gap:6px; }
+#home .stat { padding:7px 8px; }
+#home .stat h3 { font-size:13px; margin:-7px -3px 6px; padding:5px; }
+#home .bigcenter .number { font-size:19px; }
+#home .bigcenter > i { font-size:28px !important; }
+#home .pill { font-size:13px; padding:4px 10px; margin-top:4px; }
+#home .metric { gap:6px; margin-top:5px; }
+#home .metric .value { font-size:18px; margin:2px 0; }
+#home .metric small { font-size:10px; }
+#home .orders { min-height:0; }
+#home .ordershead { padding:4px 6px; }
+#home .sectiontag { padding:7px 10px; font-size:13px; }
+#home .tabs button { padding:6px 9px; font-size:11px; }
+#home .orders table { font-size:11px; }
+#home .orders th, #home .orders td { padding:6px 3px; font-size:11px; }
+#home .totalrow { padding:5px 8px; font-size:11px; }
+@media(max-width:850px) {
+  .page:not(#home) .walletrow { grid-template-columns:1fr 1fr; }
+  .page:not(#home) .kycitem { grid-template-columns:34px 1fr 105px; }
+  #home .homegrid { grid-template-columns:minmax(180px,32%) minmax(0,1fr); }
+  #home .stats { grid-template-rows:105px 155px; }
 }
 
-body {
-  background: var(--bg);
-  color: #555;
-  overflow: hidden;
-}
-
-.app-container {
-  width: 100%;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* HEADER */
-
-.header {
-  height: 75px;
-  min-height: 75px;
-  background: var(--primary);
-  display: flex;
-  align-items: center;
-  padding: 8px 22px;
-  gap: 20px;
-  color: white;
-}
-
-.logo {
-  min-width: 230px;
-  font-size: 27px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo i {
-  font-size: 37px;
-}
-
-.logo small {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 1px;
-}
-
-.marquee {
-  flex: 1;
-  background: rgba(255,255,255,.2);
-  padding: 13px;
-  border-radius: 7px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-actions button {
-  background: rgba(255,255,255,.18);
-  border: none;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 7px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.header-actions i {
-  margin-right: 7px;
-}
-
-/* MAIN */
-
-main {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.page {
-  display: none;
-  min-height: 100%;
-  background: white;
-  border: 1px solid #ddd;
-  border-top: 5px solid var(--primary);
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.page.active {
-  display: block;
-}
-
-/* HOME */
-
-.home-layout {
-  display: grid;
-  grid-template-columns: 37% 63%;
-  gap: 10px;
-}
-
-.left-col {
-  min-width: 0;
-}
-
-.top-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.card {
-  background: var(--primary);
-  color: white;
-  padding: 15px;
-  border-radius: 7px;
-}
-
-.card-title {
-  text-align: center;
-  background: rgba(255,255,255,.2);
-  padding: 7px;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  font-weight: bold;
-}
-
-.commission-circle {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  background: white;
-  color: var(--primary);
-  display: grid;
-  place-items: center;
-  font-size: 28px;
-  margin: auto auto 10px;
-}
-
-.commission-rate {
-  background: #f1c40f;
-  color: #333;
-  text-align: center;
-  width: fit-content;
-  padding: 5px 15px;
-  border-radius: 20px;
-  margin: auto;
-  font-weight: bold;
-}
-
-.team-info-grid {
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-}
-
-.team-info-grid i {
-  font-size: 23px;
-}
-
-.team-info-grid h3 {
-  font-size: 24px;
-  margin: 5px;
-}
-
-.team-info-grid p {
-  font-size: 13px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px 10px;
-}
-
-.stat-item {
-  border-bottom: 1px solid rgba(255,255,255,.3);
-  padding-bottom: 12px;
-}
-
-.stat-item:nth-child(n+3) {
-  border-bottom: none;
-}
-
-.stat-label {
-  font-size: 15px;
-}
-
-.stat-label i {
-  margin-right: 5px;
-}
-
-.stat-value {
-  font-size: 26px;
-  margin: 7px 0;
-}
-
-.stat-sub {
-  font-size: 13px;
-}
-
-/* ORDER TABLE */
-
-.orders-section {
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 7px;
-  overflow: hidden;
-}
-
-.orders-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-}
-
-.orders-title {
-  background: var(--primary);
-  color: white;
-  padding: 12px 25px;
-}
-
-.filter-tabs {
-  display: flex;
-}
-
-.filter-tabs button {
-  border: 1px solid #ddd;
-  background: white;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.filter-tabs button.active {
-  background: var(--primary);
-  color: white;
-}
-
-.table-wrapper {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-  white-space: nowrap;
-}
-
-th, td {
-  padding: 13px 10px;
-  border-bottom: 1px solid #eee;
-}
-
-th {
-  background: #f5f3f3;
-  color: #999;
-  font-weight: normal;
-}
-
-tr:nth-child(even) {
-  background: #f5f3f3;
-}
-
-.blue { color: #3997c0; }
-.green { color: var(--green); }
-.red { color: #cf6666; }
-
-.total {
-  background: #f6d5d5;
-  color: var(--dark);
-  font-weight: bold;
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* OTHER PAGE COMPONENTS */
-
-.tabs {
-  display: flex;
-  gap: 2px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
-}
-
-.tabs button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 13px 28px;
-  cursor: pointer;
-}
-
-.tabs button.active {
-  background: var(--dark);
-  font-weight: bold;
-}
-
-.section-card {
-  padding: 20px;
-  border: 1px solid #eee;
-  margin-bottom: 12px;
-  border-radius: 7px;
-}
-
-.section-card h3 {
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.section-card i {
-  margin-right: 8px;
-  color: var(--primary);
-}
-
-.wallet {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr auto;
-  gap: 20px;
-  align-items: center;
-  padding: 25px;
-  border-bottom: 1px solid #eee;
-}
-
-.wallet h3 {
-  color: #222;
-}
-
-.balance {
-  padding: 12px;
-  border: 1px solid #ddd;
-  color: var(--primary);
-  font-weight: bold;
-}
-
-.action-btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.notice {
-  background: #fff2f2;
-  padding: 15px;
-  margin-top: 15px;
-  color: #777;
-}
-
-/* BOTTOM NAV */
-
-.bottom-nav {
-  height: 72px;
-  min-height: 72px;
-  background: var(--primary);
-  display: flex;
-  width: 100%;
-}
-
-.nav-item {
-  flex: 1;
-  border: none;
-  background: transparent;
-  color: rgba(255,255,255,.8);
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 20px;
-}
-
-.nav-item i {
-  font-size: 25px;
-}
-
-.nav-item.active {
-  background: var(--dark);
-  color: white;
-  font-weight: bold;
-}
-
-/* PORTRAIT WARNING */
-
-.rotate-message {
-  display: none;
-}
-
-@media (orientation: portrait) {
-  .app-container {
-    display: none;
-  }
-
-  .rotate-message {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    background: var(--primary);
-    color: white;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 20px;
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .rotate-message i {
-    font-size: 60px;
-  }
-}
-
-@media (max-height: 500px) and (orientation: landscape) {
-  .header {
-    height: 55px;
-    min-height: 55px;
-  }
-
-  .logo {
-    font-size: 21px;
-  }
-
-  .logo i {
-    font-size: 27px;
-  }
-
-  .bottom-nav {
-    height: 58px;
-    min-height: 58px;
-  }
-
-  .nav-item {
-    font-size: 16px;
-  }
-
-  .nav-item i {
-    font-size: 20px;
-  }
-
-  .card {
-    padding: 10px;
-  }
-
-  .stat-value {
-    font-size: 20px;
-  }
-
-  th, td {
-    padding: 8px;
-  }
-}
 </style>
-</head>
+<style>
+/* Compact all-page sizing */
+.page{font-size:13px!important;padding:7px!important;overflow:auto}.page:not(#home) table{font-size:12px;min-width:680px}.page:not(#home) th,.page:not(#home) td{padding:7px 6px}.page:not(#home) .toolbar{gap:6px;margin-bottom:8px}.page:not(#home) .toolbar button,.page:not(#home) .action{padding:7px 10px;font-size:12px}.page:not(#home) .search{padding:7px;font-size:12px}.page:not(#home) .panel{padding:9px}.page:not(#home) .walletrow{padding:9px 7px}.page:not(#home) .walletname{font-size:15px}.page:not(#home) .balance{font-size:14px;padding:7px}.page:not(#home) .kycitem{padding:12px 7px;grid-template-columns:45px 1fr 150px;gap:8px}.page:not(#home) .cert{font-size:15px;padding:9px 14px}.page:not(#home) .note{font-size:12px}.page:not(#home) .promo{padding:15px;min-height:0;gap:15px}.page:not(#home) .qr{width:130px;height:130px;font-size:48px}.homegrid{height:calc(100dvh - 124px);min-height:0}.stats{grid-template-rows:minmax(110px,25%) 1fr}.stat{padding:8px}.stat h3{font-size:14px}.metric .value{font-size:20px}.metric small{font-size:11px}.orders{min-height:0}.bottom{height:54px}.nav{font-size:clamp(11px,1.6vw,17px)}.shell{padding-bottom:56px}.page{min-height:calc(100dvh - 112px)}
+@media(max-width:850px){.homegrid{grid-template-columns: minmax(190px,36%) minmax(0,1fr)}.stats{grid-template-rows:115px 1fr}.metric{gap:5px}.metric .value{font-size:17px}.page:not(#home) .walletrow{grid-template-columns:1fr 1fr}.page:not(#home) .kycitem{grid-template-columns:35px 1fr 110px}}
 
-<body>
+/* Fixed app frame: scroll only inside the relevant data panels */
+html,body{height:100%;overflow:hidden}
+.top{position:fixed;top:0;left:0;right:0;height:58px}
+.shell{position:fixed;top:58px;bottom:54px;left:0;right:0;padding:0!important;overflow:hidden}
+.page{position:absolute;inset:0;height:100%;min-height:0!important;max-height:100%;overflow:hidden!important;padding:7px!important}
+.page.active{display:block}
+.page .tablewrap{overflow:auto!important;max-height:calc(100% - 52px);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#home.page.active{overflow:hidden!important}
+#home .homegrid{height:100%!important;min-height:0!important}
+#home .orders{min-height:0;height:100%}
+#home .orders .tablewrap{flex:1;min-height:0;max-height:none}
+#team #teamList .tablewrap,#activate .tablewrap,#work .tablewrap,#activity .tablewrap,#me #history .tablewrap{height:calc(100% - 54px);max-height:none}
+#me #withdrawal{max-height:calc(100% - 48px);overflow:auto;overscroll-behavior:contain}
+#me #kyc{max-height:calc(100% - 48px);overflow:auto}
+#me #history{height:calc(100% - 48px);overflow:hidden}
+.bottom{position:fixed;height:54px;z-index:9999;pointer-events:auto;touch-action:manipulation}\n.bottom .nav{pointer-events:auto;touch-action:manipulation;cursor:pointer}
+@media(max-width:850px){
+ .top{height:54px}
+ .shell{top:54px;bottom:54px}
+ .page .tablewrap{max-height:calc(100% - 48px)}
+ #home .homegrid{height:100%!important}
+}
 
-<div class="rotate-message">
-  <i class="fa-solid fa-mobile-screen-button"></i>
-  <h2>Please Rotate Your Phone</h2>
-  <p>This application works in landscape mode.</p>
+
+/* Hidden demo-only editor, opened by seven brand-title taps */
+.admin-overlay{display:none;position:fixed;inset:0;background:#0009;z-index:100;align-items:center;justify-content:center;padding:12px}.admin-overlay.open{display:flex}.admin-box{background:#fff;border-radius:10px;padding:16px;width:min(680px,96vw);max-height:88vh;overflow:auto;box-shadow:0 8px 35px #0005}.admin-head,.admin-actions{display:flex;justify-content:space-between;align-items:center;gap:10px}.admin-head strong{font-size:20px;color:#333}.admin-warning{background:#fff3cd;color:#725600;padding:9px;border-radius:5px;font-size:12px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.admin-grid label{font-size:12px;color:#555;display:flex;flex-direction:column;gap:4px}.admin-grid input{width:100%;padding:9px;border:1px solid #ccc;border-radius:5px;font-size:14px}.admin-actions{justify-content:flex-start;margin-top:14px}@media(max-width:520px){.admin-grid{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top"><div class="brand">B BIGWINNER<small>≡ EVERYONE MAKES MONEY ≡</small></div><div class="ticker"><i class="fa-solid fa-volume-high"></i> Welcome To Join Big Winner <span class="smalltag">SAMPLE DATA · UI PREVIEW</span></div><button class="topbtn"><i class="fa-solid fa-envelope"></i>Message</button><button class="topbtn"><i class="fa-brands fa-telegram"></i>Telegram</button><button class="topbtn"><i class="fa-solid fa-building-columns"></i>Wallets</button><button class="topbtn logout"><i class="fa-solid fa-right-from-bracket"></i></button></header>
+
+<div id="demoAdmin" class="admin-overlay" aria-hidden="true"><div class="admin-box"><div class="admin-head"><strong>Demo Admin Panel</strong><button type="button" id="closeAdmin" class="action">Close</button></div><p class="admin-warning">LOCAL UI PREVIEW ONLY · These edits change fictional display figures on this device only. They do not change real accounts, payments, or Firebase records.</p><div class="admin-grid"><label>Commission (%)<input id="admCommission" type="text"></label><label>Team people<input id="admPeople" type="number"></label><label>Team workers<input id="admWorkers" type="number"></label><label>Today's income (₹)<input id="admIncome" type="number" step="0.01"></label><label>Yesterday's income (₹)<input id="admIncomeY" type="number" step="0.01"></label><label>Today's turnover (₹)<input id="admTurnover" type="number" step="0.01"></label><label>Yesterday's turnover (₹)<input id="admTurnoverY" type="number" step="0.01"></label><label>Trading wallet (₹)<input id="admWallet0" type="number" step="0.01"></label><label>Activity wallet (₹)<input id="admWallet1" type="number" step="0.01"></label><label>Security deposit display (₹)<input id="admWallet2" type="number" step="0.01"></label></div><div style="margin-top:14px;border-top:1px solid #ddd;padding-top:12px">
+<strong style="display:block;margin-bottom:6px">Work section — sample rows editor</strong>
+<p class="admin-warning">Edit only fictional display rows here. Do not enter real bank details, phone numbers, or actual financial records.</p>
+<label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#555">Work rows (JSON)
+<textarea id="admWorkRows" rows="10" spellcheck="false" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid #ccc;border-radius:5px;font:12px monospace"></textarea>
+</label>
+<small style="color:#777">Fields: serial, addTime, bank (label only), maskedSim (masked placeholder only), tradingVolume, totalIncome, progress, status.</small>
 </div>
-
-<div class="app-container">
-
-<!-- HEADER -->
-
-<header class="header">
-
-  <div class="logo">
-    <i class="fa-solid fa-b"></i>
-    <div>
-      BIGWINNER
-      <small>EVERYONE MAKES MONEY</small>
-    </div>
-  </div>
-
-  <div class="marquee">
-    <i class="fa-solid fa-bullhorn"></i>
-    Welcome To Join Big Winner
-  </div>
-
-  <div class="header-actions">
-    <button onclick="demoNotice('Messages')">
-      <i class="fa-solid fa-envelope"></i>Message
-    </button>
-
-    <button onclick="demoNotice('Telegram')">
-      <i class="fa-brands fa-telegram"></i>Telegram
-    </button>
-
-    <button onclick="showPage('me')">
-      <i class="fa-solid fa-building-columns"></i>Withdrawal
-    </button>
-
-    <button onclick="demoNotice('Logout')">
-      <i class="fa-solid fa-right-from-bracket"></i>
-    </button>
-  </div>
-
-</header>
-
-<!-- MAIN -->
-
-<main>
-
-<!-- HOME -->
-
-<section id="home" class="page active">
-
-<div class="home-layout">
-
-<div class="left-col">
-
-<div class="top-cards">
-
-<div class="card">
-  <div class="card-title">Commission</div>
-
-  <div class="commission-circle">
-    <i class="fa-solid fa-hand-holding-dollar"></i>
-  </div>
-
-  <div class="commission-rate">2.00%</div>
-</div>
-
-<div class="card">
-  <div class="card-title">Team Info</div>
-
-  <div class="team-info-grid">
-    <div>
-      <i class="fa-solid fa-users"></i>
-      <h3>2</h3>
-      <p>Team People</p>
-    </div>
-
-    <div>
-      <i class="fa-solid fa-id-card"></i>
-      <h3>8</h3>
-      <p>Team Worker</p>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="card stats-grid">
-
-<div class="stat-item">
-  <div class="stat-label">
-    <i class="fa-solid fa-dollar-sign"></i> Income
-  </div>
-  <div class="stat-value">₹0.00</div>
-  <div class="stat-sub">Demo data</div>
-</div>
-
-<div class="stat-item">
-  <div class="stat-label">
-    <i class="fa-solid fa-chart-line"></i> Turnover
-  </div>
-  <div class="stat-value">₹0.00</div>
-  <div class="stat-sub">Demo data</div>
-</div>
-
-<div class="stat-item">
-  <div class="stat-label">
-    <i class="fa-solid fa-coins"></i> Daily Wages (own)
-  </div>
-  <div class="stat-value">₹0.00</div>
-  <div class="stat-sub">Demo data</div>
-</div>
-
-<div class="stat-item">
-  <div class="stat-label">
-    <i class="fa-solid fa-users"></i> Daily Wages (Team)
-  </div>
-  <div class="stat-value">₹0.00</div>
-  <div class="stat-sub">Demo data</div>
-</div>
-
-</div>
-</div>
-
-<!-- ORDERS -->
-
-<div class="right-col">
-
-<div class="orders-section">
-
-<div class="orders-header">
-  <div class="orders-title">My Order</div>
-
-  <div class="filter-tabs">
-    <button class="active" onclick="filterOrders(this)">Today</button>
-    <button onclick="filterOrders(this)">Yesterday</button>
-    <button onclick="filterOrders(this)">More</button>
-  </div>
-</div>
-
-<div class="table-wrapper">
-<table>
-<thead>
-<tr>
-  <th>Account</th>
-  <th>Serial</th>
-  <th>Time</th>
-  <th>Income</th>
-  <th>Status</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-  <td class="blue">Demo User</td>
-  <td>DEMO-001</td>
-  <td>18:04:10</td>
-  <td class="red">--</td>
-  <td class="green">Demo</td>
-</tr>
-<tr>
-  <td class="blue">Demo User</td>
-  <td>DEMO-002</td>
-  <td>17:45:09</td>
-  <td class="red">--</td>
-  <td class="green">Demo</td>
-</tr>
-<tr>
-  <td class="blue">Demo User</td>
-  <td>DEMO-003</td>
-  <td>17:14:09</td>
-  <td class="red">--</td>
-  <td class="green">Demo</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<div class="total">
-  <span>Total: Demo</span>
-  <span>₹0.00</span>
-</div>
-
-</div>
-</div>
-
-</div>
-
-<div class="notice">
-  <i class="fa-solid fa-circle-info"></i>
-  Demonstration interface. No real financial transactions.
-</div>
-
-</section>
-
-<!-- TEAM -->
-
-<section id="team" class="page">
-
-<div class="tabs">
-  <button class="active">My Team</button>
-  <button>Team Promotion</button>
-</div>
-
-<div class="section-card">
-  <h3><i class="fa-solid fa-users"></i>Team Information</h3>
-
-  <div class="table-wrapper">
-  <table>
-    <thead>
-      <tr>
-        <th>Account</th>
-        <th>Serial</th>
-        <th>Register Time</th>
-        <th>Work Account</th>
-        <th>Rates</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="blue">Demo User</td>
-        <td>DEMO-001</td>
-        <td>2026-08-11</td>
-        <td>Demo</td>
-        <td>--</td>
-        <td class="green">Demo</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-</div>
-
-<div class="section-card">
-  <h3><i class="fa-solid fa-qrcode"></i>Team Promotion</h3>
-  <p>Referral interface demonstration.</p>
-</div>
-
-</section>
-
-<!-- ACTIVATE -->
-
-<section id="activate" class="page">
-
-<div class="tabs">
-  <button class="active">My Account</button>
-  <button>Team Account</button>
-</div>
-
-<div class="section-card">
-  <h3><i class="fa-solid fa-id-card"></i>Account Management</h3>
-
-  <div class="table-wrapper">
-  <table>
-    <thead>
-      <tr>
-        <th>Account</th>
-        <th>Serial</th>
-        <th>Add Time</th>
-        <th>Bank</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Demo User</td>
-        <td>DEMO-001</td>
-        <td>2026-10-09</td>
-        <td>Demo Bank</td>
-        <td class="green">Demo</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-</div>
-
-</section>
-
-<!-- WORK -->
-
-<section id="work" class="page">
-
-<div class="tabs">
-  <button class="active">My Account</button>
-  <button>Team Account</button>
-</div>
-
-<div class="section-card">
-  <h3><i class="fa-solid fa-file-invoice-dollar"></i>Work Information</h3>
-  <p>Account records demonstration.</p>
-</div>
-
-</section>
-
-<!-- ACTIVITY -->
-
-<section id="activity" class="page">
-
-<div class="tabs">
-  <button class="active">Activity</button>
-  <button>History</button>
-</div>
-
-<div class="section-card">
-  <h3><i class="fa-solid fa-gift"></i>Activity Information</h3>
-  <p>No activity records available in demo mode.</p>
-</div>
-
-</section>
-
-<!-- ME -->
-
-<section id="me" class="page">
-
-<div class="tabs">
-  <button class="active">Withdrawal</button>
-  <button>History</button>
-  <button>KYC</button>
-</div>
-
-<div class="wallet">
-  <h3>
-    <i class="fa-solid fa-wallet"></i>
-    Trading Commission Wallet
-  </h3>
-
-  <div class="balance">Demo Balance: ₹0.00</div>
-  <button class="action-btn" onclick="demoNotice('Wallet')">
-    Demo
-  </button>
-</div>
-
-<div class="wallet">
-  <h3>
-    <i class="fa-solid fa-gift"></i>
-    Activity Rewards Wallet
-  </h3>
-
-  <div class="balance">Demo Balance: ₹0.00</div>
-  <button class="action-btn" onclick="demoNotice('Wallet')">
-    Demo
-  </button>
-</div>
-
-<div class="wallet">
-  <h3>
-    <i class="fa-solid fa-shield-halved"></i>
-    Security Deposit Wallet
-  </h3>
-
-  <div class="balance">Demo Balance: ₹0.00</div>
-  <button class="action-btn" onclick="demoNotice('Wallet')">
-    Demo
-  </button>
-</div>
-
-</section>
-
-</main>
-
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-<button class="nav-item active" onclick="showPage('home',this)">
-  <i class="fa-solid fa-house"></i>
-  <span>Home</span>
-</button>
-
-<button class="nav-item" onclick="showPage('team',this)">
-  <i class="fa-solid fa-users"></i>
-  <span>Team</span>
-</button>
-
-<button class="nav-item" onclick="showPage('activate',this)">
-  <i class="fa-solid fa-bullseye"></i>
-  <span>Activate</span>
-</button>
-
-<button class="nav-item" onclick="showPage('work',this)">
-  <i class="fa-solid fa-file-invoice-dollar"></i>
-  <span>Work</span>
-</button>
-
-<button class="nav-item" onclick="showPage('activity',this)">
-  <i class="fa-solid fa-gift"></i>
-  <span>Activity</span>
-</button>
-
-<button class="nav-item" onclick="showPage('me',this)">
-  <i class="fa-solid fa-user"></i>
-  <span>Me</span>
-</button>
-
-</nav>
-
-</div>
-
+<div class="admin-actions"><button type="button" id="saveAdmin" class="action green">Save preview values</button><button type="button" id="resetAdmin" class="action">Reset sample values</button></div></div></div>
+<main class="shell">
+<section id="home" class="page active"><div class="homegrid"><div class="stats">
+<div class="stat bigcenter"><h3>Commission</h3><i class="fa-solid fa-hand-holding-dollar" style="font-size:34px"></i><div class="pill" id="commissionRate">2.00%</div></div>
+<div class="stat bigcenter"><h3>Team Info</h3><div style="display:flex;justify-content:space-around;margin-top:12px"><div><i class="fa-solid fa-users"></i><div class="number" id="teamPeople">2</div>Team People</div><div><i class="fa-solid fa-wallet"></i><div class="number" id="teamWorkers">8</div>Team Worker</div></div></div>
+<div class="stat" style="grid-column:1/3"><div class="metric"><div><i class="fa-solid fa-circle-dollar-to-slot"></i> Income<div class="value" id="incomeToday">₹78.00</div><small id="incomeYesterday">₹162.14 yesterday</small></div><div><i class="fa-solid fa-sack-dollar"></i> Turnover<div class="value" id="turnoverToday">₹3900.00</div><small id="turnoverYesterday">₹8107.00 yesterday</small></div><div><i class="fa-solid fa-coins"></i> Daily Wages (own)<div class="value" id="wagesOwn">₹0.00</div><small id="wagesOwnYesterday">₹0.00 yesterday</small></div><div><i class="fa-solid fa-people-group"></i> Daily Wages (Team)<div class="value" id="wagesTeam">₹0.00</div><small id="wagesTeamYesterday">₹0.00 yesterday</small></div></div></div></div>
+<div class="orders"><div class="ordershead"><span class="sectiontag">My Order</span><div class="tabs"><button class="active" onclick="orderTab(this,'today')">Today</button><button onclick="orderTab(this,'yesterday')">Yesterday</button><button onclick="orderTab(this,'more')">More</button></div></div><div class="tablewrap"><table><thead><tr><th>Account</th><th>Serial</th><th>Time</th><th>Income</th><th>Status</th></tr></thead><tbody id="ordersBody"></tbody></table></div><div class="totalrow"><span>Total:</span><span id="orderTotal">78.00</span></div></div></div></section>
+<section id="team" class="page"><div class="subtabs"><button class="active" onclick="switchTeamTab('teamList',this)">My team</button><button onclick="switchTeamTab('promotion',this)">Team Promotion</button></div><div id="teamList"><div class="toolbar"><b>My team</b><span class="spacer"></span><span class="smalltag" id="teamSummary">2 People · 8 Workers</span></div><div class="tablewrap"><table><thead><tr><th>Account</th><th>Serial</th><th>Register Time</th><th>Work Account</th><th>Rates</th><th>Balance</th><th>Status</th></tr></thead><tbody id="teamBody"></tbody></table></div></div><div id="promotion" style="display:none"><div class="promo"><div><div class="qr"><i class="fa-solid fa-qrcode"></i></div><button class="action green" onclick="toast('QR preview only')">QR preview</button></div><div><p>Subordinate commission ratio</p><div class="promolink" id="promoRatio">2.0%</div><p>Promotion link</p><div class="promolink" id="promoLink">Preview link not set</div></div></div></div></section>
+<section id="activate" class="page"><div class="toolbar"><button class="action">My Account</button><button class="action" style="background:white;color:#555">Team Account</button><span class="spacer"></span><input class="search" placeholder="Search (preview)"><button class="action" onclick="toast('Search is preview-only')">Search</button></div><div class="tablewrap"><table><thead><tr><th>Account</th><th>Serial</th><th>Add Time</th><th>Bank</th><th>Account</th><th>SIM Number</th><th>Operate</th></tr></thead><tbody id="activateBody"></tbody></table></div></section>
+<section id="work" class="page"><div class="toolbar"><button class="action">My Account</button><button class="action" style="background:white;color:#555">Team Account</button><button class="action">Valid</button><button class="action" style="background:white;color:#555">Abnormal</button><span class="spacer"></span><input class="search" placeholder="Search (preview)"></div><div class="tablewrap"><table><thead><tr><th>Serial</th><th>Add Time</th><th>Bank</th><th>Account</th><th>SIM Number</th><th>Trading Volume</th><th>Total income</th><th>Act Prog</th><th>Status</th></tr></thead><tbody id="workBody"></tbody></table></div></section>
+<section id="activity" class="page"><div class="subtabs"><button class="active">Activity</button><button>Rewards</button></div><div class="tablewrap"><table><thead><tr><th>Activity</th><th>Time</th><th>Reward</th><th>Status</th></tr></thead><tbody id="activityBody"></tbody></table></div></section>
+<section id="me" class="page"><div class="subtabs"><button class="active" onclick="switchMeTab('withdrawal',this)">Wallets</button><button onclick="switchMeTab('history',this)">History</button><button onclick="switchMeTab('kyc',this)">KYC status</button></div><div id="withdrawal" class="panel" id="walletPanel"></div><div id="history" style="display:none"><div class="tablewrap"><table><thead><tr><th>Account</th><th>Masked ID</th><th>Date</th><th>Amount</th><th>Fee</th><th>Net</th><th>Status</th></tr></thead><tbody id="historyBody"></tbody><tfoot><tr><th colspan="3">Total (display reference)</th><th id="historyAmountTotal">18889.00</th><th></th><th id="historyNetTotal">15251.20</th><th></th></tr></tfoot></table></div></div><div id="kyc" style="display:none" class="panel"><div id="kycBody"></div></div></section>
+</main><nav class="bottom"><button class="nav active" onclick="showPage('home',this)"><i class="fa-solid fa-house"></i>Home</button><button class="nav" onclick="showPage('team',this)"><i class="fa-solid fa-users"></i>Team</button><button class="nav" onclick="showPage('activate',this)"><i class="fa-solid fa-bullseye"></i>Activate</button><button class="nav" onclick="showPage('work',this)"><i class="fa-solid fa-book"></i>Work</button><button class="nav" onclick="showPage('activity',this)"><i class="fa-solid fa-gift"></i>Activity</button><button class="nav" onclick="showPage('me',this)"><i class="fa-solid fa-user"></i>Me</button></nav><div id="toast" class="toast"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
-
-// PAGE NAVIGATION
-
-function showPage(pageId, element) {
-
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  document.getElementById(pageId).classList.add('active');
-
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.classList.remove('active');
-  });
-
-  if(element) {
-    element.classList.add('active');
-  } else {
-    document.querySelectorAll('.nav-item').forEach(item => {
-      if(item.getAttribute('onclick').includes(pageId)) {
-        item.classList.add('active');
-      }
-    });
-  }
+// Firebase Realtime Database: reads and writes fictional UI preview data only at /uiPreview. No payment, bank, withdrawal, or KYC transactions are performed.
+const firebaseConfig={apiKey:"AIzaSyCvJVDCcf_vcD62C9o-JAuu0ft59t0py8",authDomain:"bigwinner-320d7.firebaseapp.com",databaseURL:"https://bigwinner-320d7-default-rtdb.firebaseio.com",projectId:"bigwinner-320d7",storageBucket:"bigwinner-320d7.firebasestorage.app",messagingSenderId:"178059392565",appId:"1:178059392565:web:59322164b579f6ea0d237c",measurementId:"G-SLFGVVVP2Z"};
+const defaults={
+  commissionRate:"2.00%",teamPeople:2,teamWorkers:8,
+  incomeToday:"78.00",incomeYesterday:"162.14",
+  turnoverToday:"3900.00",turnoverYesterday:"8107.00",
+  wagesOwn:"0.00",wagesOwnYesterday:"0.00",wagesTeam:"0.00",wagesTeamYesterday:"0.00",
+  orders:{
+    today:[
+      {account:"Jarvis",serial:"B104-923-001-003",time:"13:24:09",income:"+10.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-003",time:"13:09:06",income:"+10.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-003",time:"12:48:08",income:"+6.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-001",time:"09:51:07",income:"+20.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-001",time:"08:08:06",income:"+8.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-001",time:"07:50:06",income:"+24.00",status:"Done"}
+    ],
+    yesterday:[
+      {account:"Jarvis",serial:"B104-923-001-009",time:"18:04:10",income:"+25.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-009",time:"17:45:09",income:"+2.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-003",time:"17:14:09",income:"+4.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-003",time:"14:47:08",income:"+18.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-003",time:"14:31:06",income:"+2.00",status:"Done"},
+      {account:"Jarvis",serial:"B104-923-001-003",time:"14:13:06",income:"+14.00",status:"Done"}
+    ],
+    more:[],
+    todayTotal:"78.00",yesterdayTotal:"162.14",moreTotal:"0.00"
+  },
+  teamMembers:[
+    {account:"Jarvis",serial:"B104-923-002-001",registerTime:"2026-11-03",workAccount:"8 Digital",rate:"2.0%",balance:"790.04",status:"Valid"},
+    {account:"Jarvis",serial:"B104-923-002-002",registerTime:"2026-10-29",workAccount:"—",rate:"2.0%",balance:"250.00",status:"Valid"}
+  ],
+  activateAccounts:[
+    {account:"Jarvis",serial:"B104-923-001-007",addTime:"2026-10-09",bank:"JIO PAYMENT BANK",maskedSim:"******6735",status:"Listed"}
+  ],
+  workAccounts:[
+    {serial:"B104-923-001-009",addTime:"2026-10-13",bank:"JIO PAYMENT BANK",maskedSim:"******4523",tradingVolume:"57857.00",totalIncome:"1157.14",progress:33,status:"Valid"},
+    {serial:"B104-923-001-008",addTime:"2026-10-09",bank:"AIRTEL PAYMENTS BANK",maskedSim:"******5938",tradingVolume:"35405.00",totalIncome:"708.10",progress:33,status:"Valid"},
+    {serial:"B104-923-001-006",addTime:"2026-09-25",bank:"JIO PAYMENT BANK",maskedSim:"******6545",tradingVolume:"82685.00",totalIncome:"1653.70",progress:33,status:"Valid"},
+    {serial:"B104-923-001-005",addTime:"2026-09-21",bank:"STATE BANK OF INDIA",maskedSim:"******4431",tradingVolume:"220516.99",totalIncome:"4410.34",progress:33,status:"Valid"},
+    {serial:"B104-923-001-004",addTime:"2026-09-21",bank:"INDIA POST PAYMENT BANK",maskedSim:"******9172",tradingVolume:"20925.00",totalIncome:"418.50",progress:33,status:"Valid"},
+    {serial:"B104-923-001-003",addTime:"2026-09-20",bank:"JIO PAYMENT BANK",maskedSim:"******5344",tradingVolume:"74365.00",totalIncome:"1487.30",progress:33,status:"Valid"},
+    {serial:"B104-923-001-002",addTime:"2026-08-21",bank:"JIO PAYMENT BANK",maskedSim:"******6883",tradingVolume:"133094.00",totalIncome:"2661.88",progress:66.67,status:"Valid"}
+  ],
+  activities:[
+    {activity:"Daily activity reward",time:"2026-11-04",reward:"25.00",status:"Completed"},
+    {activity:"Team activity reward",time:"2026-11-03",reward:"18.00",status:"Completed"}
+  ],
+  wallets:[
+    {name:"Trading Commission Wallet",balance:"790.04",description:"Commissions earned from daily trading volume. Display information only."},
+    {name:"Activity Rewards Wallet",balance:"250.00",description:"Activity reward balance shown for this UI preview."},
+    {name:"Security deposit wallet",balance:"3597.80",description:"Deposit balance shown for this UI preview."}
+  ],
+  history:[
+    {account:"Jarvis",maskedId:"**** **** 5344",date:"2026-11-03 16:05:42",amount:"500.00",fee:"100.00",net:"400.00",status:"Success"},
+    {account:"Jarvis",maskedId:"**** **** 5344",date:"2026-11-02 11:18:40",amount:"500.00",fee:"50.00",net:"450.00",status:"Success"},
+    {account:"Jarvis",maskedId:"**** **** 5344",date:"2026-11-01 18:51:45",amount:"500.00",fee:"100.00",net:"400.00",status:"Success"},
+    {account:"Jarvis",maskedId:"**** **** 5344",date:"2026-10-31 12:12:03",amount:"500.00",fee:"100.00",net:"400.00",status:"Success"},
+    {account:"Jarvis",maskedId:"**** **** 5344",date:"2026-10-29 12:40:29",amount:"400.00",fee:"40.00",net:"360.00",status:"Success"},
+    {account:"Jarvis",maskedId:"**** **** 5344",date:"2026-10-29 12:40:13",amount:"500.00",fee:"50.00",net:"450.00",status:"Success"}
+  ],
+  historyTotals:{amount:"18889.00",net:"15251.20"},
+  kyc:{generalStatus:"Certified",advancedStatus:"Uncertified",primaryLimit:"₹25 - ₹500",advancedLimit:"₹25 - ₹30000"},
+  promotion:{ratio:"2.0%",link:"Preview link not set"}
+};
+let currentData=JSON.parse(JSON.stringify(defaults)),activeOrder="today";
+const el=id=>document.getElementById(id),money=v=>String(v??"0.00").startsWith("₹")?String(v):"₹"+String(v??"0.00");
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function setText(id,v){if(el(id))el(id).textContent=v??""}
+function rows(id,arr,fn,emptyCols){const target=el(id);if(!target)return;target.innerHTML=(Array.isArray(arr)&&arr.length?arr.map(fn).join(""):`<tr><td colspan="${emptyCols}" style="text-align:center;color:#999">No display records</td></tr>`)}
+function applyData(raw){const d={...defaults,...(raw||{})};d.orders={...defaults.orders,...(raw?.orders||{})};d.kyc={...defaults.kyc,...(raw?.kyc||{})};d.promotion={...defaults.promotion,...(raw?.promotion||{})};d.historyTotals={...defaults.historyTotals,...(raw?.historyTotals||{})};currentData=d;
+setText('commissionRate',d.commissionRate);setText('teamPeople',d.teamPeople);setText('teamWorkers',d.teamWorkers);setText('incomeToday',money(d.incomeToday));setText('incomeYesterday',money(d.incomeYesterday)+' yesterday');setText('turnoverToday',money(d.turnoverToday));setText('turnoverYesterday',money(d.turnoverYesterday)+' yesterday');setText('wagesOwn',money(d.wagesOwn));setText('wagesOwnYesterday',money(d.wagesOwnYesterday)+' yesterday');setText('wagesTeam',money(d.wagesTeam));setText('wagesTeamYesterday',money(d.wagesTeamYesterday)+' yesterday');setText('teamSummary',`${d.teamPeople} People · ${d.teamWorkers} Workers`);setText('promoRatio',d.promotion.ratio);setText('promoLink',d.promotion.link);
+renderOrders(activeOrder);
+rows('teamBody',d.teamMembers,r=>`<tr><td>${safe(r.account)}</td><td>${safe(r.serial)}</td><td>${safe(r.registerTime)}</td><td>${safe(r.workAccount)}</td><td>${safe(r.rate)}</td><td>${safe(r.balance)}</td><td class="valid">${safe(r.status)}</td></tr>`,7);
+rows('activateBody',d.activateAccounts,r=>`<tr><td>${safe(r.account)}</td><td>${safe(r.serial)}</td><td>${safe(r.addTime)}</td><td>${safe(r.bank)}</td><td>View</td><td>${safe(r.maskedSim)}</td><td><span class="smalltag">${safe(r.status||'Listed')}</span></td></tr>`,7);
+rows('workBody',d.workAccounts,r=>`<tr><td>${safe(r.serial)}</td><td>${safe(r.addTime)}</td><td>${safe(r.bank)}</td><td>View</td><td>${safe(r.maskedSim)}</td><td>${safe(r.tradingVolume)}</td><td>${safe(r.totalIncome)}</td><td><div class="progress"><span style="width:${Math.max(0,Math.min(100,Number(r.progress)||0))}%">${safe(r.progress)}%</span></div></td><td class="valid">${safe(r.status)}</td></tr>`,9);
+rows('activityBody',d.activities,r=>`<tr><td>${safe(r.activity)}</td><td>${safe(r.time)}</td><td>${safe(money(r.reward))}</td><td class="done">${safe(r.status)}</td></tr>`,4);
+const walletHtml=(d.wallets||[]).map(w=>`<div class="walletrow"><div class="walletname"><i class="fa-solid fa-wallet"></i>${safe(w.name)}</div><div class="balance">Balance: ${safe(w.balance)}</div><span class="smalltag">Read-only preview</span><p class="muted" style="grid-column:1/5">${safe(w.description||'Display data only')}</p></div>`).join('');el('withdrawal').innerHTML=walletHtml||'<p>No wallet display data.</p>';
+rows('historyBody',d.history,r=>`<tr><td>${safe(r.account||'Member')}</td><td>${safe(r.maskedId)}</td><td>${safe(r.date)}</td><td>${safe(r.amount)}</td><td>${safe(r.fee)}</td><td>${safe(r.net)}</td><td>${safe(r.status)}</td></tr>`,7);setText('historyAmountTotal',d.historyTotals.amount);setText('historyNetTotal',d.historyTotals.net);
+el('kycBody').innerHTML=`<div class="kycitem"><div class="num">1</div><div><span class="cert">General certification</span></div><div class="statusbox">${safe(d.kyc.generalStatus)}</div><div class="note">Primary limit: <b>${safe(d.kyc.primaryLimit)}</b></div></div><div class="kycitem"><div class="num" style="background:#50a6b1">2</div><div><span class="cert">Advanced certification</span></div><div class="statusbox gray">${safe(d.kyc.advancedStatus)}</div><div class="note">Advanced limit: <b>${safe(d.kyc.advancedLimit)}</b></div></div>`;
 }
+function renderOrders(which){activeOrder=which;const a=currentData.orders?.[which]||[];rows('ordersBody',a,r=>`<tr><td style="color:#3191bd">${safe(r.account)}</td><td>${safe(r.serial)}</td><td>${safe(r.time)}</td><td class="positive">${safe(r.income)}</td><td class="done">${safe(r.status||'Done')}</td></tr>`,5);setText('orderTotal',currentData.orders?.[which+'Total']??'—')}
+function orderTab(btn,which){btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderOrders(which)}
+function showPage(id,btn){const target=el(id);if(!target){console.error('Page not found:',id);return;}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));target.classList.add('active');document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));if(btn)btn.classList.add('active');target.scrollTop=0;}
+function switchTeamTab(id,btn){['teamList','promotion'].forEach(x=>el(x).style.display=x===id?'block':'none');btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function switchMeTab(id,btn){['withdrawal','history','kyc'].forEach(x=>el(x).style.display=x===id?'block':'none');btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function toast(msg){const t=el('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2000)}
+applyData(defaults);
 
-// HEADER BUTTON DEMO
-
-function demoNotice(name) {
-  alert(name + " is disabled in this demonstration.");
-}
-
-// ORDER FILTER UI
-
-function filterOrders(button) {
-  document.querySelectorAll('.filter-tabs button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  button.classList.add('active');
-}
-
-</script>
-
-</body>
-</html>
+// Demo-only local editor: seven taps on the BIGWINNER title. Never writes to Firebase.
+let brandTapCount=0,brandTapTimer=null;
+const brandEl=document.querySelector('.brand');
+brandEl.style.cursor='pointer';
+brandEl.title='Tap 7 times to open demo editor';
+brandEl.addEventListener('click',()=>{brandTapCount++;clearTimeout(brandTapTimer);brandTapTimer=setTimeout(()=>brandTapCount=0,1800);if(brandTapCount>=7){brandTapCount=0;openDemoAdmin();}});
+const adminFields={admCommission:'commissionRate',admPeople:'teamPeople',admWorkers:'teamWorkers',admIncome:'incomeToday',admIncomeY:'incomeYesterday',admTurnover:'turnoverToday',admTurnoverY:'turnoverYesterday',admWallet0:'wallet0',admWallet1:'wallet1',admWallet2:'wallet2'};
+function openDemoAdmin(){const d=currentData||defaults;const vals={admCommission:d.commissionRate,admPeople:d.teamPeople,admWorkers:d.teamWorkers,admIncome:d.incomeToday,admIncomeY:d.incomeYesterday,admTurnover:d.turnoverToday,admTurnoverY:d.turnoverYesterday,admWallet0:d.wallets?.[0]?.balance??'0.00',admWallet1:d.wallets?.[1]?.balance??'0.00',admWallet2:d.wallets?.[2]?.balance??'0.00'};Object.entries(vals).forEach(([id,v])=>{const node=el(id);if(node)node.value=String(v).replace(/^₹/,'').replace(/%$/,'')});el('admWorkRows').value=JSON.stringify(d.workAccounts||[],null,2);el('demoAdmin').classList.add('open');el('demoAdmin').setAttribute('aria-hidden','false')}
+function closeDemoAdmin(){el('demoAdmin').classList.remove('open');el('demoAdmin').setAttribute('aria-hidden','true')}
+el('closeAdmin').addEventListener('click',closeDemoAdmin);
+el('saveAdmin').addEventListener('click',async()=>{const v=id=>el(id).value.trim();let workRows;try{workRows=JSON.parse(v('admWorkRows'));if(!Array.isArray(workRows))throw new Error('Work rows must be a JSON array');if(workRows.some(r=>!r||typeof r!=='object'||Array.isArray(r)))throw new Error('Each work row must be an object');}catch(err){toast('Work rows JSON error: '+err.message);return;}const updates={commissionRate:v('admCommission').replace(/%?$/,'%'),teamPeople:Number(v('admPeople')),teamWorkers:Number(v('admWorkers')),incomeToday:v('admIncome'),incomeYesterday:v('admIncomeY'),turnoverToday:v('admTurnover'),turnoverYesterday:v('admTurnoverY'),wallets:(currentData.wallets||defaults.wallets).map((w,i)=>({...w,balance:v('admWallet'+i)})),workAccounts:workRows};const btn=el('saveAdmin');btn.disabled=true;btn.textContent='Saving to Firebase...';try{if(!window.firebase||!firebase.apps||!firebase.apps.length)throw new Error('Firebase is not initialized. Check internet and Firebase SDK loading.');await firebase.database().ref('uiPreview').update(updates);applyData({...currentData,...updates});localStorage.removeItem('bigwinnerDemoOverrides');toast('Display values saved to Firebase');closeDemoAdmin();}catch(err){console.error('Firebase write failed:',err);const msg=err&&err.code==='PERMISSION_DENIED'?'Firebase permission denied. Configure authenticated write access for /uiPreview.':(err.message||'Firebase save failed');toast(msg);}finally{btn.disabled=false;btn.textContent='Save preview values';}});
+el('resetAdmin').addEventListener('click',()=>{localStorage.removeItem('bigwinnerDemoOverrides');applyData(defaults);openDemoAdmin();toast('Sample values restored')});
+function applyStoredDemoOverrides(){try{const saved=JSON.parse(localStorage.getItem('bigwinnerDemoOverrides')||'null');if(saved)applyData({...currentData,...saved})}catch(e){console.warn('Could not load local demo values',e)}}
+applyStoredDemoOverrides();
+// Explicitly expose inline-click handlers for Android WebView compatibility.
+window.showPage=showPage;
+window.orderTab=orderTab;
+window.switchTeamTab=switchTeamTab;
+window.switchMeTab=switchMeTab;
+window.toast=toast;
+try{if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);firebase.database().ref('uiPreview').on('value',snap=>{if(snap.exists()){applyData(snap.val());}},err=>{console.error('Firebase read failed:',err);toast('Firebase read unavailable — showing local preview');});}catch(e){console.error(e);toast('Firebase setup error — showing local preview');}
+</script></body></html>
